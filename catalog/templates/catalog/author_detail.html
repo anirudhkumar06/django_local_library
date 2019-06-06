@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Author: {{ author.last_name }}, {{ author.first_name }}</h1>
+  {{ author.date_of_birth }} - {{ author.get_date_of_death }}
+  <!-- <p><strong>First Name:</strong> {{ author.first_name }}</p>  
+  <p><strong>Last Name:</strong> {{ author.last_name }}</p>   -->
+  <!-- <p><strong>Birth:</strong> {{ author.date_of_birth }}</p>  
+  {% if author.get_date_of_death %}
+    <p><strong>Death:</strong> {{ author.get_date_of_death }}</p>  
+  {% endif %} -->
+
+  <!-- <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>   -->
+  <a class="text-primary" href="{% url 'author_update' author.pk %}">Update</a> |
+  <a class="text-danger" href="{% url 'author_delete' author.pk %}">Delete</a>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Books</h4>
+
+    <dl>
+      {% for book in author.book_set.all %}
+        <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.bookinstance_set.count}})</dt>
+        <dd>{{book.summary}}</dd>
+      {% endfor %}
+      </dl>
+  </div>
+{% endblock %}
